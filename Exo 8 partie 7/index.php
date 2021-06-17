@@ -42,6 +42,11 @@
         }else {
             $formErrorList['file']='Vous n\'avez pas ajouté de fichier';
         }
+    //Confirmation de l'extension du fichier ajouté dans le formulaire
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+        if(strtolower($ext) != 'pdf'){
+            $formErrorList['file']='Vous ne pouvez ajouter qu\'un fichier de type PDF';
+        }
     }
     
 ?>
