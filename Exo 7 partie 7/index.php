@@ -25,6 +25,7 @@
         } else {
             $formErrorList['firstname'] = 'Attention ! Vous n\'avez pas fourni de prénom !';
         }
+    // Confirmation du genre dans le formulaire
         if(!empty($_REQUEST['gender'])) {
             if(in_array($_REQUEST['gender'],$genderlist)){
                 $gender=htmlspecialchars($_REQUEST['gender']);
@@ -35,6 +36,11 @@
         else {             
             $formErrorList['gender'] = 'Attention ! Vous n\'avez pas selectionné de genre !';
         }
+        if(!empty($_REQUEST['file'])) {
+            $file=htmlspecialchars($_REQUEST['file']);
+        }else {
+            $formErrorList['file']='Vous n\'avez pas ajouté de fichier';
+        }
     }
 
 ?>
@@ -42,13 +48,13 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Exercice 6</title>
+        <title>Exercice 7</title>
     </head>
     <body>
         <?php
         if(isset($_REQUEST['register'])&& empty($formErrorList))//Vérification des données envoyées et vérifier que le fichier d'erreur est vide
         { 
-            ?><p>Bonjour <?= $gender ?> <?=$firstname?><?=$lastname?></p><?php
+            ?><p>Bonjour <?= $gender ?> <?=$firstname?> <?=$lastname?></p> <p><?=$file?> </p><?php
             }
         // si mes REQUEST n'existe pas j'affiche mon formulaire
         else 
@@ -75,7 +81,7 @@
                 <input type="text" value="<?= isset($firstname)? $firstname : '' ?>" name="firstname">
                 <?php 
                 if(!empty($formErrorList['firstname'])){
-                    ?><p><small><?='<span style="color:#FF0000>'?><?= $formErrorList['firstname'] ?></small></p>
+                    ?><p><small><?='<span style="color:#FF0000">'?><?= $formErrorList['firstname'] ?></small></p>
                 <?php
                 }
                 ?></p>
@@ -86,11 +92,19 @@
                 <?php
                 }
                 ?>
+                <p><input type="file" value="<?= isset($file)? $file : ''?>" name="file" id="file"></p>
+                <?php
+                    if(!empty($formErrorList['file'])){
+                    ?><p><small><?='<span style="color:#FF0000">'?><?= $formErrorList['file'] ?></small></p>
+                <?php
+                }
+                ?>
                 <p><input type="submit" value="s'enregistrer" name="register"></p>
             </form>
             <p>remplir les champs vides</p>
         <?php
         }
         ?>
+    </div>
 </body>
 </html>
